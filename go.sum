@@ -1,0 +1,6 @@
+github.com/halimath/kvlog v0.9.0 h1:vNIgHAtlEveaCxXbI2otsZA2rGA06C1OiJI6n2WGEs0=
+github.com/halimath/kvlog v0.9.0/go.mod h1:nx6CljvZ02fQiDeQNXbhLwe0wy6kTBc4lX1KhLXAUNU=
+github.com/sethvargo/go-envconfig v0.8.3 h1:dXyUrDCJvCm3ybP7yNpiux93qoSORvuH23bdsgFfiJ0=
+github.com/sethvargo/go-envconfig v0.8.3/go.mod h1:Iz1Gy1Sf3T64TQlJSvee81qDhf7YIlt8GMUX6yyNFs0=
+golang.org/x/sync v0.1.0 h1:wsuoTGHzEhffawBOhz5CYhcrV4IdKZbEyZjBMuTp12o=
+golang.org/x/sync v0.1.0/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
