@@ -1,7 +1,7 @@
-package internal
+package logwatch
 
 import "testing"
 
 func TestXxx(t *testing.T) {
-	WatchLog()
+	Start()
 }

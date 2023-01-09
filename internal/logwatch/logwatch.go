@@ -1,4 +1,4 @@
-package internal
+package logwatch
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/hpcloud/tail"
 )
 
-func WatchLog() {
+func Start() {
 	t, err := tail.TailFile("D:\\test.log", tail.Config{Follow: true})
 	if err != nil {
 		panic(err)

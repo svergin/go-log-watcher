@@ -13,6 +13,7 @@ import (
 	"github.com/halimath/kvlog"
 	"github.com/svergin/go-log-watcher/internal/config"
 	"github.com/svergin/go-log-watcher/internal/health"
+	logwatch "github.com/svergin/go-log-watcher/internal/logwatch/boundary"
 )
 
 // The main entry point for the service. It wires dependencies and starts the HTTP server.
@@ -23,11 +24,13 @@ func main() {
 	cfg := config.Provide(ctx)
 
 	healthHandler := health.Provide()
+	logwatchHandler := logwatch.Provide()
 
 	// Create the root HTTP multiplexer
 	mux := http.NewServeMux()
 	// Register health endpoints
 	mux.Handle("/health/", http.StripPrefix("/health", healthHandler))
+	mux.Handle("/log/", http.StripPrefix("/log", logwatchHandler))
 
 	// Create the server
 	srv := http.Server{
