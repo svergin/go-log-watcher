@@ -29,6 +29,7 @@ func (h *LogwatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (h *LogwatchHandler) handleLogFile(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	l := Log{
 		Lines: []string{"eine Zeile", "zweite Zeile", "dritte Zeile"},
 	}
