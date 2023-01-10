@@ -37,6 +37,7 @@ func main() {
 		Addr:    fmt.Sprintf(":%d", cfg.HTTPPort),
 		Handler: kvlog.Middleware(kvlog.L, mux),
 	}
+	srv.SetKeepAlivesEnabled(true)
 
 	kvlog.L.Logs("starting")
 

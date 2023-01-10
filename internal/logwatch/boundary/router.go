@@ -1,8 +1,11 @@
 package boundary
 
 import (
-	"encoding/json"
+	"io"
 	"net/http"
+	"strings"
+
+	"github.com/svergin/go-log-watcher/internal/logwatch"
 )
 
 type LogwatchHandler struct {
@@ -28,11 +31,25 @@ func (h *LogwatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *LogwatchHandler) handleLogFile(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	// w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "text/plain")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	l := Log{
-		Lines: []string{"eine Zeile", "zweite Zeile", "dritte Zeile"},
+	// l := Log{
+	// 	Lines: []string{"eine Zeile", "zweite Zeile", "dritte Zeile"},
+	// }
+	// json.NewEncoder(w).Encode(l)
+	t, err := logwatch.Start("/var/log/syslog")
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
-	json.NewEncoder(w).Encode(l)
+	defer t.Cleanup()
+	defer t.Stop()
+
+	for line := range t.Lines {
+		io.Copy(w, strings.NewReader(line.Text))
+	}
+
 	w.WriteHeader(http.StatusOK)
 }

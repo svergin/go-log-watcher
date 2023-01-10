@@ -10,7 +10,16 @@ export default {
       
       try {
         const res = await fetch('http://localhost:8080/log/watch')
-        this.loglines = (await res.json()).lines
+        
+        const reader =(await res.body?.getReader());
+        //this.loglines = (await res.json()).lines
+        reader?.read().then(({done, value }) => {
+          // if(done) {
+          //   return res
+          // }
+          this.loglines = String.fromCharCode.apply(null, value)
+          
+        })
       } catch (error) {
         this.loglines = 'Error! Could not reach the API. ' + error
       }
@@ -26,7 +35,7 @@ export default {
     <h1 class="green">Logfile</h1>
   </div>
   <div>
-    <textarea  v-model="loglines" size="50"/>
+    <textarea v-model="loglines" cols="50" rows="25"/>
     
   </div>
 </template>
